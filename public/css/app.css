@@ -47,7 +47,6 @@ li a {
     color: white;
     text-align: center;
     padding-bottom: 14px 16px;
-    padding:14px 16px;
     text-decoration: none;
     font-size: 25px;
 }
@@ -74,14 +73,20 @@ a {
 label {
     display: block;
 }
-input, textarea {
+
+input {
+    box-sizing: border-box;
+}
+
+
+textarea {
     box-sizing: border-box;
     width: 30%;
     margin-bottom: 1rem;
 }
 
 select {
-    width: 30%;
+    width: 20%;
     padding: 5px 10px;
     border: none;
     border-radius: 4px;
