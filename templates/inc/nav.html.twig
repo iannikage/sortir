@@ -1,7 +1,10 @@
 <nav>
     <ul>
         {% if app.user %}
+
             <li><a href="{{ path('app_logout') }}" title="Logout">Se déconnecter ({{ app.user.email }})</a></li>
+            <li><a href="{{ path('monprofil') }}" title="Mon Profil">Mon Profil </a></li>
+
         {% else %}
             <li><a href="{{ path('app_login') }}" title="Login">Se connecter</a></li>
             <li><a href="{{ path('register') }}" title="Create account">Créer un compte</a></li>

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
+use App\Repository\ParticipantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,12 +11,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class ParticipantController extends AbstractController
 {
     /**
-     * @Route("/participant", name="app_participant")
+     * @Route("/monprofil", name="monprofil")
      */
-    public function index(): Response
+    public function afficherProfil(ParticipantRepository $participantRepository): Response
     {
-        return $this->render('participant/index.html.twig', [
-            'controller_name' => 'ParticipantController',
+        /** @var Participant $participant */
+        $participant = $this->getUser();
+        return $this->render('participant/monprofil.html.twig',[
+            'participant' => $participant,
         ]);
+
     }
+
 }

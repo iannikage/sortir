@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+    <h1>Mon Profil</h1>
+
+    <div class="monprofil-infos">
+
+
+        <article>
+            {{  participant.pseudo }}
+            {{  participant.prenom }}
+            {{  participant.nom }}
+            {{  participant.telephone}}
+            {{  participant.email }}
+            {{  participant.campus }}
+
+
+        </article>
+
+    </div>
+
+
+    <br>
+    <button type="submit" class="btn-1">Enregistrer</button>
+    <button type="reset" class="btn-2">Annuler</button>
+
+
+{% endblock %}
