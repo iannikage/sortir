@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,31 +11,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
-    <link rel ="stylesheet" href="{{ asset ('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset ('css/app.css') }}">
 
 
     {% block extrastyles %}{% endblock %}
 
 </head>
 <body>
-    <header>
-        <div class="container">
+<header>
+    <div class="container">
         <h1 class="header-logo">
             <a href="{{ path('main_accueil') }}" title="Accueil">
-                <img src="" alt="Accueil logo">
+                <img src="{{ asset('img/logosortir.png') }}" alt="Accueil logo">Sortir
             </a>
         </h1>
-        </div>
-        <h1><a href="{{ path('main_accueil') }}" title="Accueil">Accueil</a></h1>
-            {% include ('inc/nav.html.twig') %}
-        </nav>
-    </header>
-    <main>
-        {% block body %}{% endblock %}
-    </main>
-    <footer>
-        <div>&copy;{{ "now" | date("Y") }} Sortir.com</div>
-    </footer>
-</div>
+    </div>
+    {% include ('inc/nav.html.twig') %}
+
+</header>
+
+<main>
+    {% block body %}{% endblock %}
+</main>
+
+<footer>
+    <div class="container">{{ "now" | date("Y") }} Sortir.com</div>
+</footer>
+
 </body>
 </html>

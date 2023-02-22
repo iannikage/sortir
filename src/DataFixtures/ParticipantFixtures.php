@@ -22,6 +22,7 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
     {
         $yann = new Participant();
         $yann->setNom('Lesieur');
+        $yann->setPseudo('yanou');
         $yann->setPrenom('Yann');
         $yann->setTelephone('0656664554');
         $yann->setEmail('yann.lesieur@eni-ecole.fr');
@@ -36,6 +37,7 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
 
         $sarah = new Participant();
         $sarah->setNom('Dozeville');
+        $sarah->setPseudo('Sarahdoz');
         $sarah->setPrenom('Sarah');
         $sarah->setTelephone('0656664590');
         $sarah->setEmail('dozeville.sarah@eni-ecole.fr');
@@ -52,6 +54,7 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
         $adele = new Participant();
         $adele->setNom('Colin');
         $adele->setPrenom('Adele');
+        $adele->setPseudo('Adele35');
         $adele->setTelephone('0656660000');
         $adele->setEmail('colin.adele@eni-ecole.fr');
         $adele->setPassword($this->hasher->hashPassword($adele, '123C'));
