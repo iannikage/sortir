@@ -6,6 +6,7 @@ use App\Repository\CampusRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CampusRepository::class)
@@ -22,7 +23,8 @@ class Campus
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom;
+
+    protected $nom;
 
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="campus")
@@ -115,5 +117,9 @@ class Campus
         }
 
         return $this;
+    }
+    public function __toString()
+    {
+       return $this->getNom();
     }
 }
