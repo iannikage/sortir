@@ -9,12 +9,14 @@
 
 
         <article>
-            {{  participant.pseudo }}
-            {{  participant.prenom }}
-            {{  participant.nom }}
-            {{  participant.telephone}}
-            {{  participant.email }}
-            {{  participant.campus }}
+
+            {{ form_start(ProfilFormType) }}
+            {{ form_row(ProfilFormType.pseudo) }}
+            {{ form_row(ProfilFormType.prenom) }}
+            {{ form_row(ProfilFormType.nom) }}
+            {{ form_row(ProfilFormType.telephone) }}
+            {{ form_row(ProfilFormType.campus) }}
+
 
 
         </article>
@@ -25,6 +27,6 @@
     <br>
     <button type="submit" class="btn-1">Enregistrer</button>
     <button type="reset" class="btn-2">Annuler</button>
-
+    {{ form_end(ProfilFormType) }}
 
 {% endblock %}
