@@ -3,13 +3,11 @@
 {% block title %}{% endblock %}
 
 {% block body %}
+    <h1>Sortir.com</h1>
 <div class="sorties-list">
 
-    <h1>Sortir.com</h1>
-
-
     <table class="tableau-sorties">
-        <tr>
+        <tr class="colonnes-sorties">
             <th>Nom de la sortie</th>
             <th>Date de la sortie</th>
             <th>Clôture</th>
@@ -17,15 +15,21 @@
             <th>Inscrits/places</th>
             <th>Organisateur</th>
             <th>Action</th>
-
         </tr>
         {% for sortie in liste_sortie %}
         <tr>
-            <td>{{ sortie.nom }}</td>
-
+            <td> {{ sortie.nom }}</td>
+            <td> {{ sortie.dateHeureDebut| date('d-m-Y H:i') }}</td>
+            <td> {{ sortie.dateLimiteInscription| date('d-m-Y H:i') }}</td>
+            <td> {{ sortie.etat }}</td>
+            <td> {{ sortie.nbInscriptionsMax }}</td>
+            <td> Organisateur </td>
+            <td> Afficher/ Modifier/ S'inscrire </td>
         </tr>
-        <tr>
-{% endfor %}
+        {% endfor %}
+    </table>
+
+    <a href="{{ path('app_sortie_create') }}" class="button-createsortie">Créer une sortie</a>
 
 </div>
 {% endblock %}
