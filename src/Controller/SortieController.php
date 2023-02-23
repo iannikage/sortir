@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Sortie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     /**
-     * @Route("/", name="create")
+     * @Route("/create", name="create")
      */
     public function createSortie(): Response
     {
@@ -21,8 +22,9 @@ class SortieController extends AbstractController
         ]);
     }
     /**
-     * @Route("/", name="afficher")
+     * @Route("/afficher", name="afficher")
      */
+
     public function afficherSortie(): Response
     {
         return $this->render('sortie/afficher.html.twig', [
@@ -30,7 +32,7 @@ class SortieController extends AbstractController
         ]);
     }
     /**
-     * @Route("/", name="annuler")
+     * @Route("/annuler", name="annuler")
      */
     public function annulerSortie(): Response
     {
