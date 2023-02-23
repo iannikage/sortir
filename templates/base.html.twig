@@ -29,14 +29,16 @@
     {% include ('inc/nav.html.twig') %}
 
 </header>
-{% for message in app.flashes('success') %}
-        <div class="flash flash-success">
-            {{ message }}
-        </div>
-{% endfor %}
+
 
 <main>
     {% block body %}{% endblock %}
+
+    {% for message in app.flashes('success') %}
+        <div class="flash flash-success">
+            {{ message }}
+        </div>
+    {% endfor %}
 </main>
 
 <footer>
