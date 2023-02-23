@@ -49,6 +49,7 @@ li a {
     padding-bottom: 14px 16px;
     padding-right: 4px;
     padding-left: 4px;
+    margin-right: 10px;
     text-decoration: none;
     font-size: 15px;
 }
@@ -60,9 +61,18 @@ a {
 }
 
 
-.monprofil-infos{
+.monprofil-infos {
     margin-left: 20px;
 }
+
+.registration {
+    margin-left: 20px;
+}
+
+.login{
+    margin-left: 20px;
+}
+
 
 .btn-1 {
     background-color: white;
