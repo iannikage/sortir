@@ -7,14 +7,26 @@
 
     <h1>Sortir.com</h1>
 
-    {% for sortie in liste_sortie %}
-    <div> Nom de la sortie : {{ sortie.nom }}</div>
-        <div> Date de la sortie : {{ sortie.dateHeureDebut }}</div>
-        <div> Clôture : {{ sortie.dateLimiteInscription }}</div>
-        <div> Etat : {{ sortie.etat }}</div>
-        <div> Inscrits/places : {{ sortie.nbInscriptionsMax }}</div>
-        <div> Organisateur : {{ sortie.organisateur}}</div>
-    <div> Action :</div>
+
+    <table class="tableau-sorties">
+        <tr>
+            <th>Nom de la sortie</th>
+            <th>Date de la sortie</th>
+            <th>Clôture</th>
+            <th>Etat</th>
+            <th>Inscrits/places</th>
+            <th>Organisateur</th>
+            <th>Action</th>
+
+        </tr>
+        {% for sortie in liste_sortie %}
+        <tr>
+            <td>{{ sortie.nom }}</td>
+
+        </tr>
+        <tr>
 {% endfor %}
+
 </div>
-    {% endblock %}
+{% endblock %}
+
