@@ -18,11 +18,13 @@ class SortieFormType extends AbstractType
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
-            ->add('participants')
-            ->add('organisateur')
-            ->add('etat')
-            ->add('lieu')
             ->add('campus')
+            ->add('ville')
+            ->add('lieu')
+            ->add('rue')
+            ->add('codePostal')
+            ->add('latitude')
+            ->add('longitude')
         ;
     }
 
