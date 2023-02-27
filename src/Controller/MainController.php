@@ -16,7 +16,7 @@ class MainController extends AbstractController
     public function list(SortieRepository $sortieRepository): Response
     {
         /** @var Sortie $sorties */
-        $sorties = $sortieRepository->findAll();
+        $sorties = $sortieRepository->findBy([]);
 
         return $this->render('main/accueil.html.twig', [
            'liste_sortie'=>$sorties

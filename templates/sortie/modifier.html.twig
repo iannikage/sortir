@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        {{ form_start(modificationForm) }}
+        {{ form_widget(modificationForm) }}
+        <br>
+        <button type="submit" class="btn-1">Modifier la sortie</button>
+        <button type="reset" class="btn-2">Annuler</button>
+        {{ form_end(modificationForm) }}
+
+
+    </div>
+
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

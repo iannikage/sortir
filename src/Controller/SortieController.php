@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Entity\Sortie;
-use App\Repository\SortieRepository;
+use App\Form\ModificationType;
 use App\Repository\EtatRepository;
+use App\Repository\SortieRepository;
+use App\Form\AnnulationType;
 use App\Form\RegistrationFormType;
 use App\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -63,11 +65,60 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/annuler", name="annuler")
+     * @Route("/modifier/{id}", name="modifier")
      */
-    public function annulerSortie(): Response
+    public function modifierSortie(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, Request $request, EntityManagerInterface $entityManager ): Response
     {
+
+        $sortie = $sortieRepository->find($id);
+
+        $modificationForm = $this->createForm(ModificationType::class, $sortie);
+        $modificationForm->handleRequest($request);
+
+        if ($modificationForm->isSubmitted() && $modificationForm->isValid()) {
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash('success','Sortie modifiée avec succès');
+            return $this->redirectToRoute('main_accueil');
+        }
+
+        return $this->render('sortie/modifier.html.twig', [
+            'modificationForm' => $modificationForm->createView(),
+        ]);
+    }
+
+
+
+
+
+
+
+
+    /**
+     * @Route("/annuler/{id}", name="annuler")
+     */
+    public function annulerSortie(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, Request $request, EntityManagerInterface $entityManager ): Response
+    {
+
+        $sortie = $sortieRepository->find($id);
+
+        $annulationForm = $this->createForm(AnnulationType::class, $sortie);
+        $annulationForm->handleRequest($request);
+
+        if ($annulationForm->isSubmitted() && $annulationForm->isValid()) {
+            $etat = $etatRepository->findOneBy(['libelle' => "Annulée"]);
+            $sortie->setEtat($etat);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash('success','Sortie annulée avec succès');
+            return $this->redirectToRoute('main_accueil');
+    }
+
         return $this->render('sortie/annuler.html.twig', [
+            'annulationForm' => $annulationForm->createView(),
         ]);
     }
 

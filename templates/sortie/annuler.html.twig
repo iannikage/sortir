@@ -10,34 +10,25 @@
 
         <article>
 
-            <table>
-                <tr>
-                    <td>Nom de la sortie : </td>
-                    <td>{{ sortie.nom }}</td>
-                </tr>
-                <tr>
-                    <td>Date de la sortie : </td>
-                    <td>{{ sortie.dateHeureDebut| date('d-m-Y') }}</td>
-                </tr>
-                <tr>
-                    <td>Campus : </td>
-                    <td>{{ sortie.campus }}</td>
-                </tr>
-                <tr>
-                    <td>Lieu : </td>
-                    <td>{{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</td>
-                </tr>
-            </table>
+
+
+
+            <div>
+                {{ form_start(annulationForm) }}
+                {{ form_widget(annulationForm) }}
+                <br>
+                <button type="submit" class="btn-1">Annuler la sortie</button>
+                <button type="reset" class="btn-2">Annuler</button>
+                {{ form_end(annulationForm) }}
+
+
+            </div>
+
 
 
 
         </article>
 
-
-        <br>
-        <input type="submit" value="Enregister">
-        <input type="reset">
-
     </div>
-
 {% endblock %}
+

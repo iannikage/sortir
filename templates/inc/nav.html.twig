@@ -4,6 +4,7 @@
 
             <li><a href="{{ path('app_logout') }}" title="Logout">Se déconnecter ({{ app.user.email }})</a></li>
             <li><a href="{{ path('monprofil') }}" title="Mon Profil">Mon Profil </a></li>
+            <li><a href="{{ path('app_sortie_create') }}" title="Créer une sortie">Créer une sortie </a></li>
 
         {% else %}
             <li><a href="{{ path('app_login') }}" title="Login">Se connecter</a></li>

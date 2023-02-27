@@ -78,6 +78,13 @@ class Sortie
      */
     private $campus;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $motif;
+
+
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -241,5 +248,19 @@ class Sortie
     {
         return $this->getNbInscriptionsMax();
     }
+
+    public function getMotif(): ?string
+    {
+        return $this->motif;
+    }
+
+    public function setMotif(?string $motif): self
+    {
+        $this->motif = $motif;
+
+        return $this;
+    }
+
+
 
 }
