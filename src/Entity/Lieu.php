@@ -154,5 +154,6 @@ class Lieu
     {
         return $this->getRue();
     }
+
 }
 

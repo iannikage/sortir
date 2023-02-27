@@ -3,11 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Sortie;
+use App\Entity\Ville;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SortieFormType extends AbstractType
+class SortieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -18,13 +21,8 @@ class SortieFormType extends AbstractType
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
-            ->add('campus')
-            ->add('ville')
             ->add('lieu')
-            ->add('rue')
-            ->add('codePostal')
-            ->add('latitude')
-            ->add('longitude')
+            ->add('campus')
         ;
     }
 

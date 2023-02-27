@@ -27,6 +27,7 @@ class RegistrationController extends AbstractController
         EntityManagerInterface $entityManager): Response
     {
         $participant = new Participant();
+        $participant->setRoles(["ROLE_USER"]);
         $form = $this->createForm(RegistrationFormType::class, $participant);
         $form->handleRequest($request);
 

@@ -4,7 +4,16 @@
 
 {% block body %}
     <h1>Sortir.com</h1>
+
+<div class="filtres">
+    <h3>Filtrer les sorties</h3>
+
+</div>
+
+
+
 <div class="sorties-list">
+
 
     <table class="tableau-sorties">
         <tr class="colonnes-sorties">
@@ -28,9 +37,9 @@
         </tr>
         {% endfor %}
     </table>
-
+    {% if app.user %}
     <a href="{{ path('app_sortie_create') }}" class="button-createsortie">Créer une sortie</a>
-
+    {% endif %}
 </div>
 {% endblock %}
 

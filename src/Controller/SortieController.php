@@ -2,10 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Repository\SortieRepository;
+use App\Repository\EtatRepository;
+use App\Form\RegistrationFormType;
+use App\Form\SortieType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,10 +23,31 @@ class SortieController extends AbstractController
     /**
      * @Route("/create", name="create")
      */
-    public function createSortie(): Response
+    public function createSortie(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EtatRepository $etatRepository
+    ): Response
     {
+        $sortie = new Sortie();
+        $sortie->setOrganisateur($this->getUser());
+
+        $etat=$etatRepository->findOneBy(['libelle' =>'ouverte']);
+        $sortie->setEtat($etat);
+
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm->handleRequest($request);
+
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()){
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash('success','Sortie créée avec succès');
+            return $this->redirectToRoute('main_accueil');
+        }
+
         return $this->render('sortie/create.html.twig', [
-            'controller_name' => 'SortieController',
+            'sortieForm' => $sortieForm->createView(),
         ]);
     }
     /**
@@ -41,7 +68,6 @@ class SortieController extends AbstractController
     public function annulerSortie(): Response
     {
         return $this->render('sortie/annuler.html.twig', [
-            'controller_name' => 'SortieController',
         ]);
     }
 
