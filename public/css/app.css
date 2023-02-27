@@ -145,3 +145,22 @@ table {
 table th, table td {
     border: solid 3px;
 }
+
+.infos-sortie > div {
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.sortie-liste-participants > div {
+    font-weight: bold;
+    padding-top: 20px;
+}
+
+.container {
+    column-count: 2;
+    width: 70%;
+}
+
+.tableau-participants-sortie {
+    width: 50%;
+}
