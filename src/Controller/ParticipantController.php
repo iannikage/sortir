@@ -32,8 +32,6 @@ class ParticipantController extends AbstractController
             return $this->redirectToRoute('monprofil');
         }
 
-
-
         return $this->render('participant/monprofil.html.twig', [
             'ProfilFormType' => $profilForm->createView()
         ]);

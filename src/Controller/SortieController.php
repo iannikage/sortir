@@ -7,6 +7,7 @@ use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\ModificationType;
 use App\Repository\EtatRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Form\AnnulationType;
 use App\Form\RegistrationFormType;
@@ -26,25 +27,25 @@ class SortieController extends AbstractController
      * @Route("/create", name="create")
      */
     public function createSortie(
-        Request                $request,
+        Request $request,
         EntityManagerInterface $entityManager,
-        EtatRepository         $etatRepository
+        EtatRepository $etatRepository
     ): Response
     {
         $sortie = new Sortie();
         $sortie->setOrganisateur($this->getUser());
 
-        $etat = $etatRepository->findOneBy(['libelle' => 'ouverte']);
+        $etat=$etatRepository->findOneBy(['libelle' =>'ouverte']);
         $sortie->setEtat($etat);
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
 
-        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()){
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Sortie créée avec succès');
+            $this->addFlash('success','Sortie créée avec succès');
             return $this->redirectToRoute('main_accueil');
         }
 
@@ -52,7 +53,6 @@ class SortieController extends AbstractController
             'sortieForm' => $sortieForm->createView(),
         ]);
     }
-
     /**
      * @Route("/afficher/{id}", name="afficher")
      */
@@ -61,14 +61,14 @@ class SortieController extends AbstractController
     {
         $sortie = $sortieRepository->find($id);
         return $this->render('sortie/afficher.html.twig', [
-            "sortie" => $sortie
+            "sortie"=>$sortie
         ]);
     }
 
     /**
      * @Route("/modifier/{id}", name="modifier")
      */
-    public function modifierSortie(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, Request $request, EntityManagerInterface $entityManager): Response
+    public function modifierSortie(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, Request $request, EntityManagerInterface $entityManager ): Response
     {
 
         $sortie = $sortieRepository->find($id);
@@ -81,7 +81,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Sortie modifiée avec succès');
+            $this->addFlash('success','Sortie modifiée avec succès');
             return $this->redirectToRoute('main_accueil');
         }
 
@@ -90,11 +90,10 @@ class SortieController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/annuler/{id}", name="annuler")
      */
-    public function annulerSortie(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, Request $request, EntityManagerInterface $entityManager): Response
+    public function annulerSortie(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, Request $request, EntityManagerInterface $entityManager ): Response
     {
 
         $sortie = $sortieRepository->find($id);
@@ -108,15 +107,14 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Sortie annulée avec succès');
+            $this->addFlash('success','Sortie annulée avec succès');
             return $this->redirectToRoute('main_accueil');
-        }
+    }
 
         return $this->render('sortie/annuler.html.twig', [
             'annulationForm' => $annulationForm->createView(),
         ]);
     }
-
 
 
     /**
@@ -152,6 +150,17 @@ class SortieController extends AbstractController
         $this->addFlash('success', 'Désistement effectué avec succès');
         return $this->redirectToRoute('main_accueil');
 
+    }
+
+    /**
+     * @Route("/profilorga/{id}", name="profilorga")
+     */
+    public function profilOrga(int $id, ParticipantRepository $participantRepository): Response
+    {
+        $organisateur = $participantRepository->find($id);
+        return $this->render('sortie/profilorga.html.twig', [
+            "organisateur"=>$organisateur
+        ]);
     }
 
 }

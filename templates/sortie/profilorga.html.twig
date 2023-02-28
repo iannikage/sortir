@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ organisateur.pseudo }}</h1>
+    <div class="container">
+
+        <div class="infos-orga">
+            <div> Nom  : {{ organisateur.nom }}</div>
+            <div> Prénom : {{ organisateur.prenom }}</div>
+            <div> Téléphone : {{ organisateur.telephone }}</div>
+            <div> Email : {{ organisateur.email }}</div>
+            <div> Campus : {{ organisateur.campus }}</div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
