@@ -26,25 +26,25 @@ class SortieController extends AbstractController
      * @Route("/create", name="create")
      */
     public function createSortie(
-        Request $request,
+        Request                $request,
         EntityManagerInterface $entityManager,
-        EtatRepository $etatRepository
+        EtatRepository         $etatRepository
     ): Response
     {
         $sortie = new Sortie();
         $sortie->setOrganisateur($this->getUser());
 
-        $etat=$etatRepository->findOneBy(['libelle' =>'ouverte']);
+        $etat = $etatRepository->findOneBy(['libelle' => 'ouverte']);
         $sortie->setEtat($etat);
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
 
-        if ($sortieForm->isSubmitted() && $sortieForm->isValid()){
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success','Sortie créée avec succès');
+            $this->addFlash('success', 'Sortie créée avec succès');
             return $this->redirectToRoute('main_accueil');
         }
 
@@ -52,6 +52,7 @@ class SortieController extends AbstractController
             'sortieForm' => $sortieForm->createView(),
         ]);
     }
+
     /**
      * @Route("/afficher/{id}", name="afficher")
      */
@@ -60,14 +61,14 @@ class SortieController extends AbstractController
     {
         $sortie = $sortieRepository->find($id);
         return $this->render('sortie/afficher.html.twig', [
-            "sortie"=>$sortie
+            "sortie" => $sortie
         ]);
     }
 
     /**
      * @Route("/modifier/{id}", name="modifier")
      */
-    public function modifierSortie(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, Request $request, EntityManagerInterface $entityManager ): Response
+    public function modifierSortie(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
 
         $sortie = $sortieRepository->find($id);
@@ -80,7 +81,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success','Sortie modifiée avec succès');
+            $this->addFlash('success', 'Sortie modifiée avec succès');
             return $this->redirectToRoute('main_accueil');
         }
 
@@ -90,16 +91,10 @@ class SortieController extends AbstractController
     }
 
 
-
-
-
-
-
-
     /**
      * @Route("/annuler/{id}", name="annuler")
      */
-    public function annulerSortie(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, Request $request, EntityManagerInterface $entityManager ): Response
+    public function annulerSortie(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
 
         $sortie = $sortieRepository->find($id);
@@ -113,14 +108,50 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success','Sortie annulée avec succès');
+            $this->addFlash('success', 'Sortie annulée avec succès');
             return $this->redirectToRoute('main_accueil');
-    }
+        }
 
         return $this->render('sortie/annuler.html.twig', [
             'annulationForm' => $annulationForm->createView(),
         ]);
     }
 
+
+
+    /**
+     * @Route("/inscrire/{id}", name="inscrire")
+     */
+    public function inscrire (EntityManagerInterface $entityManager, ?Sortie $sortie):Response
+    {
+        if (!$sortie) {
+            throw $this->createNotFoundException('Sortie inconnue');
+        }
+        $sortie->addParticipant($this->getUser());
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Inscription effectuée avec succès');
+        return $this->redirectToRoute('main_accueil');
+    }
+
+    /**
+     * @Route("/desister/{id}", name="desister")
+     */
+
+    public function desister (EntityManagerInterface $entityManager, ?Sortie $sortie) :Response
+    {
+        if (!$sortie) {
+            throw $this->createNotFoundException('Sortie inconnue');
+        }
+
+        $sortie->removeParticipant($this->getUser());
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Désistement effectué avec succès');
+        return $this->redirectToRoute('main_accueil');
+
+    }
 
 }

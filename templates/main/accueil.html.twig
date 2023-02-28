@@ -32,8 +32,18 @@
             <td> {{ sortie.dateLimiteInscription| date('d-m-Y H:i') }}</td>
             <td> {{ sortie.etat }}</td>
             <td> {{ sortie.nbInscriptionsMax }}</td>
-            <td> Organisateur </td>
-            <td> Afficher/ Modifier/ S'inscrire </td>
+            <td> {{ sortie.organisateur.nom }} </td>
+            <td>
+
+                <a href="{{ path('app_sortie_afficher', {'id':sortie.id}) }}" class="button-affichersortie">Afficher</a><br>
+                <a href="{{ path('app_sortie_annuler', {'id':sortie.id}) }}" class="button-annulersortie">Annuler la sortie</a><br>
+                <a href="{{ path('app_sortie_modifier', {'id':sortie.id}) }}" class="button-modifiersortie">Modifier la sortie</a><br>
+                <a href="{{ path('app_sortie_inscrire', {'id':sortie.id}) }}" class="button-inscriresortie">S'inscrire à la sortie</a><br>
+                <a href="{{ path('app_sortie_desister', {'id':sortie.id}) }}" class="button-desistersortie">Se désister de la sortie</a><br>
+
+
+
+            </td>
         </tr>
         {% endfor %}
     </table>
