@@ -5,59 +5,60 @@
 {% block body %}
     <h1>Sortir.com</h1>
 
-<div class="filtres">
-    <h3>Filtrer les sorties</h3>
-<div>
-    {% include 'sortie/filter.html.twig' with {form: form} only %}
-</div>
+        <div class="filtres">
+            <h3>Filtrer les sorties</h3>
+            <div class="filtres-form">
+                {% include 'sortie/filter.html.twig' with {form: form} only %}
+            </div>
 
-</div>
-
-
-
-<div class="sorties-list">
-
-
-    <table class="tableau-sorties">
-        <tr class="colonnes-sorties">
-            <th>Nom de la sortie</th>
-            <th>Date de la sortie</th>
-            <th>Clôture</th>
-            <th>Etat</th>
-            <th>Inscrits/places</th>
-            <th>Organisateur</th>
-            <th>Campus</th>
-            <th>Action</th>
-        </tr>
-        {% for sortie in liste_sortie %}
-        <tr>
-            <td> {{ sortie.nom }}</td>
-            <td> {{ sortie.dateHeureDebut| date('d-m-Y H:i') }}</td>
-            <td> {{ sortie.dateLimiteInscription| date('d-m-Y H:i') }}</td>
-            <td> {{ sortie.etat }}</td>
-            <td> {{ sortie.nbInscriptionsMax }}</td>
-            <td>{{ sortie.campus }}</td>
-            <td> <a href="{{ path('app_sortie_profilorga', {'id':sortie.organisateur.id}) }}" class="button-profilorga">{{ sortie.organisateur.pseudo }}</a></td>
-            <td>
-
-                <a href="{{ path('app_sortie_afficher', {'id':sortie.id}) }}" class="button-affichersortie">Afficher</a><br>
-                <a href="{{ path('app_sortie_annuler', {'id':sortie.id}) }}" class="button-annulersortie">Annuler la sortie</a><br>
-                <a href="{{ path('app_sortie_modifier', {'id':sortie.id}) }}" class="button-modifiersortie">Modifier la sortie</a><br>
-                <a href="{{ path('app_sortie_inscrire', {'id':sortie.id}) }}" class="button-inscriresortie">S'inscrire à la sortie</a><br>
-                <a href="{{ path('app_sortie_desister', {'id':sortie.id}) }}" class="button-desistersortie">Se désister de la sortie</a><br>
-
-
-
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
-    {% if app.user %}
-        <div class="bouton-creersortie">
-         <a href="{{ path('app_sortie_create') }}" class="button-createsortie">Créer une sortie</a>
         </div>
-    {% endif %}
+
+
+        <div class="sorties-list">
+            <table class="tableau-sorties">
+                <tr class="colonnes-sorties">
+                    <th>Nom de la sortie</th>
+                    <th>Date de la sortie</th>
+                    <th>Clôture</th>
+                    <th>Etat</th>
+                    <th>Inscrits/places</th>
+                    <th>Organisateur</th>
+                    <th>Campus</th>
+                    <th>Action</th>
+                </tr>
+                {% for sortie in liste_sortie %}
+                    <tr>
+                        <td> {{ sortie.nom }}</td>
+                        <td> {{ sortie.dateHeureDebut| date('d-m-Y H:i') }}</td>
+                        <td> {{ sortie.dateLimiteInscription| date('d-m-Y H:i') }}</td>
+                        <td> {{ sortie.etat }}</td>
+                        <td> {{ sortie.nbInscriptionsMax }}</td>
+                        <td>{{ sortie.campus }}</td>
+                        <td><a href="{{ path('app_sortie_profilorga', {'id':sortie.organisateur.id}) }}"
+                               class="button-profilorga">{{ sortie.organisateur.pseudo }}</a></td>
+                        <td>
+
+                            <a href="{{ path('app_sortie_afficher', {'id':sortie.id}) }}" class="button-affichersortie">Afficher</a><br>
+                            <a href="{{ path('app_sortie_annuler', {'id':sortie.id}) }}" class="button-annulersortie">Annuler
+                                la sortie</a><br>
+                            <a href="{{ path('app_sortie_modifier', {'id':sortie.id}) }}" class="button-modifiersortie">Modifier
+                                la sortie</a><br>
+                            <a href="{{ path('app_sortie_inscrire', {'id':sortie.id}) }}" class="button-inscriresortie">S'inscrire
+                                à la sortie</a><br>
+                            <a href="{{ path('app_sortie_desister', {'id':sortie.id}) }}" class="button-desistersortie">Se
+                                désister de la sortie</a><br>
+
+
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% if app.user %}
+            <div class="bouton-creersortie">
+                <a href="{{ path('app_sortie_create') }}" class="button-createsortie">Créer une sortie</a>
+            </div>
+        {% endif %}
 
 {% endblock %}
 

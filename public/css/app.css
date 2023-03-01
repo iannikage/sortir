@@ -179,3 +179,22 @@ table th, table td {
 .tableau-participants-sortie {
     width: 50%;
 }
+
+.filtres {
+    margin-left: 20px;
+    margin-bottom: 30px;
+}
+
+.filtres-form {
+    column-count: 2;
+    width: 85%;
+}
+
+.row > div {
+    margin-top: 5px;
+}
+
+.submit-filtres {
+    margin-top: 10px;
+    border-radius: 30px;
+}

@@ -1,4 +1,9 @@
-{{ form_start(form) }}
-{{ form_widget(form) }}
-<button type="submit">Rechercher</button>
+ {{ form_start(form) }}
+    <div class="row">
+        <div> {{ form_row(form.campus) }} </div>
+        <div> {{ form_row(form.q) }}</div>
+        <div> {{ form_row(form.dateFrom) }}</div>
+        <div> {{ form_row(form.dateTo) }}</div>
+    </div>
+<button type="submit" class="submit-filtres">Rechercher</button>
 {{ form_end(form) }}
