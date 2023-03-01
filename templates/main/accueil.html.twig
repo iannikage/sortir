@@ -7,6 +7,9 @@
 
 <div class="filtres">
     <h3>Filtrer les sorties</h3>
+<div>
+    {% include 'sortie/filter.html.twig' with {form: form} only %}
+</div>
 
 </div>
 
@@ -23,6 +26,7 @@
             <th>Etat</th>
             <th>Inscrits/places</th>
             <th>Organisateur</th>
+            <th>Campus</th>
             <th>Action</th>
         </tr>
         {% for sortie in liste_sortie %}
@@ -32,6 +36,7 @@
             <td> {{ sortie.dateLimiteInscription| date('d-m-Y H:i') }}</td>
             <td> {{ sortie.etat }}</td>
             <td> {{ sortie.nbInscriptionsMax }}</td>
+            <td>{{ sortie.campus }}</td>
             <td> <a href="{{ path('app_sortie_profilorga', {'id':sortie.organisateur.id}) }}" class="button-profilorga">{{ sortie.organisateur.pseudo }}</a></td>
             <td>
 

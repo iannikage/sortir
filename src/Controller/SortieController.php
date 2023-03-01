@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\ModificationType;
+use App\Form\SearchFormType;
 use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
@@ -59,7 +61,7 @@ class SortieController extends AbstractController
 
     public function afficherSortie(int $id, SortieRepository $sortieRepository): Response
     {
-        $sortie = $sortieRepository->find($id);
+       $sortie = $sortieRepository->find($id);
         return $this->render('sortie/afficher.html.twig', [
             "sortie"=>$sortie
         ]);
