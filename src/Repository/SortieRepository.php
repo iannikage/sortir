@@ -81,8 +81,18 @@ class SortieRepository extends ServiceEntityRepository
             }
             if (!empty($search->campus)){
                 $query = $query
-                    ->andWhere('c.id IN(:campus)')
+                    ->andWhere('s.campus = :campus')
                     ->setParameter('campus', $search->campus);
+            }
+            if (!empty($search->dateFrom)){
+                $query = $query
+                ->andWhere('s.dateHeureDebut >= :dateFrom')
+                ->setParameter('dateFrom', $search->dateFrom);
+            }
+            if (!empty($search->dateTo)) {
+                $query = $query
+                ->andWhere('s.dateHeureDebut <= :dateTo')
+                ->setParameter('dateTo', $search->dateTo);
             }
         return $query->getQuery()->getResult();
 

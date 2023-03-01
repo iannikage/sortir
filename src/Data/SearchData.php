@@ -14,26 +14,11 @@ class SearchData
      */
     public $q ='';
 
-    /**
-     * @var string;
-     */
-    public $campus  ;
+    public ?Campus $campus = null ;
 
-    /**
-     * @var string A "Y-m-d" formatted value
-     * @Assert\DateTime()
-     */
-    public $dateFrom;
+    public ?\DateTime $dateFrom = null;
 
-    /**
-     * @var string A "Y-m-d" formatted value
-     * @Assert\DateTime()
-     */
-    public $dateTo;
+    public ?\DateTime $dateTo = null;
 
-    /**
-     * @var Sortie[]
-     */
-    public $sorties =[];
 
 }

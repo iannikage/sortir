@@ -20,6 +20,7 @@ class MainController extends AbstractController
     {
         /** @var Sortie $sorties */
         $data = new SearchData();
+        $data ->campus=($this->getUser()->getCampus());
         $form = $this->createForm(SearchFormType::class, $data);
         $form->handleRequest($request);
         $sorties = $sortieRepository->findSearch($data);

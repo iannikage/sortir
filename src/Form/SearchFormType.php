@@ -7,6 +7,7 @@ use App\Entity\Campus;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,12 +21,20 @@ class SearchFormType extends AbstractType
             ->add('campus', EntityType::class, [
                 'required' => false,
                 'class'=>Campus::class,
-                'choice_label'=> 'nom'
+                'choice_label'=> 'nom',
             ])
             ->add('q',TextType::class, [
                 'label'=>'Le nom de la sortie contient : ',
                 'required'=>false,
                 'attr'=>['placeholder'=>'search']
+            ])
+            ->add('dateFrom', DateType::class, [
+                'widget' => 'single_text',
+                'required' => false,
+            ])
+            ->add('dateTo', DateType::class, [
+                'widget' => 'single_text',
+                'required' => false,
             ])
         ;
     }
