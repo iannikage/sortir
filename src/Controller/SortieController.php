@@ -35,21 +35,18 @@ class SortieController extends AbstractController
     ): Response
     {
         $sortie = new Sortie();
+        $date = new \DateTime('now');
         $sortie->setOrganisateur($this->getUser());
-
         $etat=$etatRepository->findOneBy(['libelle' =>'ouverte']);
         $sortie->setEtat($etat);
-
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
-
-        if ($sortieForm->isSubmitted() && $sortieForm->isValid()){
-            $entityManager->persist($sortie);
-            $entityManager->flush();
-
-            $this->addFlash('success','Sortie créée avec succès');
-            return $this->redirectToRoute('main_accueil');
-        }
+            if ($sortieForm->isSubmitted() && $sortieForm->isValid() && $date<($sortie->getDateHeureDebut())){
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+                $this->addFlash('success','Sortie créée avec succès');
+                return $this->redirectToRoute('main_accueil');
+            }
 
         return $this->render('sortie/create.html.twig', [
             'sortieForm' => $sortieForm->createView(),
@@ -133,6 +130,7 @@ class SortieController extends AbstractController
 
         $this->addFlash('success', 'Inscription effectuée avec succès');
         return $this->redirectToRoute('main_accueil');
+
     }
 
     /**
