@@ -32,7 +32,7 @@
                         <td> {{ sortie.dateHeureDebut| date('d-m-Y H:i') }}</td>
                         <td> {{ sortie.dateLimiteInscription| date('d-m-Y H:i') }}</td>
                         <td> {{ sortie.etat }}</td>
-                        <td> {{ sortie.nbInscriptionsMax }}</td>
+                        <td> {{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
                         <td>{{ sortie.campus }}</td>
                         <td><a href="{{ path('app_sortie_profilorga', {'id':sortie.organisateur.id}) }}"
                                class="button-profilorga">{{ sortie.organisateur.pseudo }}</a></td>
