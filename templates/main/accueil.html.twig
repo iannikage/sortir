@@ -37,20 +37,29 @@
                         <td><a href="{{ path('app_sortie_profilorga', {'id':sortie.organisateur.id}) }}"
                                class="button-profilorga">{{ sortie.organisateur.pseudo }}</a></td>
                         <td>
-
-                            <a href="{{ path('app_sortie_afficher', {'id':sortie.id}) }}" class="button-affichersortie">Afficher</a><br>
-                            <a href="{{ path('app_sortie_annuler', {'id':sortie.id}) }}" class="button-annulersortie">Annuler
-                                la sortie</a><br>
-                            <a href="{{ path('app_sortie_modifier', {'id':sortie.id}) }}" class="button-modifiersortie">Modifier
-                                la sortie</a><br>
-                            <a href="{{ path('app_sortie_inscrire', {'id':sortie.id}) }}" class="button-inscriresortie">S'inscrire
-                                à la sortie</a><br>
-                            <a href="{{ path('app_sortie_desister', {'id':sortie.id}) }}" class="button-desistersortie">Se
-                                désister de la sortie</a><br>
-
+                            {% if app.user %}
+                                <a href="{{ path('app_sortie_afficher', {'id':sortie.id}) }}" class="button-affichersortie">Afficher</a><br>
+                                {% if app.user.id == sortie.organisateur.id %}
+                                    {%  if date('now') <= sortie.dateLimiteInscription and sortie.etat == 'Créée' or sortie.etat == 'Ouverte' %}
+                                    <a href="{{ path('app_sortie_modifier', {'id': sortie.id}) }}" class="button-edit">Modifier la sortie</a>
+                                    <a href="{{ path('app_sortie_annuler', {'id': sortie.id}) }}" class="button-delete">Supprimer la sortie</a>
+                                    {% endif %}
+                                {% endif %}
+                                {% if app.user not in sortie.participants %}
+                                    {%  if date('now') <= sortie.dateLimiteInscription and sortie.etat == 'Créée' or sortie.etat == 'Ouverte'  %}
+                                    <a href="{{ path('app_sortie_inscrire', {'id': sortie.id}) }}" class="button-inscription">S'inscrire à la sortie</a>
+                                    {% endif %}
+                                {% endif %}
+                                {% if app.user in sortie.participants %}
+                                    {%  if date('now') <= sortie.dateLimiteInscription and sortie.etat == 'Créée' or sortie.etat == 'Ouverte'  %}
+                                    <a href="{{ path('app_sortie_desister', {'id': sortie.id}) }}" class="button-desinscription">Se désister de la sortie</a>
+                                    {% endif %}
+                                {% endif %}
+                           {% endif %}
 
                         </td>
                     </tr>
+
                 {% endfor %}
             </table>
         </div>
