@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Data\SearchData;
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -67,12 +68,13 @@ class SortieRepository extends ServiceEntityRepository
     /**
      * @return Sortie[]
      */
-    public function findSearch(SearchData $search): array
+    public function findSearch(SearchData $search, Participant $participant): array
     {
        $query = $this
            ->createQueryBuilder('s')
-           ->select('c','s')
-           ->join('s.campus', 'c');
+           ->select('c','s','e')
+           ->join('s.campus', 'c')
+            ->join('s.etat', 'e');
 
             if(!empty($search->q)){
                 $query = $query
@@ -93,6 +95,26 @@ class SortieRepository extends ServiceEntityRepository
                 $query = $query
                 ->andWhere('s.dateHeureDebut <= :dateTo')
                 ->setParameter('dateTo', $search->dateTo);
+            }
+            if ($search->sortiesOrga){
+                $query = $query
+                ->andWhere('s.organisateur = :sortiesOrga')
+                ->setParameter('sortiesOrga', $participant);
+            }
+            if ($search->sortiesInscrit){
+                $query = $query
+                ->andWhere(':sortiesInscrit MEMBER OF s.participants')
+                ->setParameter('sortiesInscrit', $participant);
+            }
+            if ($search->sortiesNonInscrit){
+                $query = $query
+                ->andWhere(':sortiesnonInscrit NOT MEMBER OF s.participants')
+                ->setParameter('sortiesnonInscrit', $participant);
+            }
+             if ($search->sortiesPassees){
+                $query = $query
+                    ->andWhere('e.libelle = :etat')
+                    ->setParameter('etat', 'Passée' );
             }
         return $query->getQuery()->getResult();
 

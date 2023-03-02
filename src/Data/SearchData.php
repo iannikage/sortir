@@ -20,5 +20,13 @@ class SearchData
 
     public ?\DateTime $dateTo = null;
 
+    public bool $sortiesOrga = false ;
+
+    public bool $sortiesInscrit = false;
+
+    public bool $sortiesNonInscrit = false;
+
+    public bool $sortiesPassees = false;
+
 
 }

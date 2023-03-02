@@ -23,7 +23,7 @@ class MainController extends AbstractController
         $data ->campus=($this->getUser()->getCampus());
         $form = $this->createForm(SearchFormType::class, $data);
         $form->handleRequest($request);
-        $sorties = $sortieRepository->findSearch($data);
+        $sorties = $sortieRepository->findSearch($data, $this->getUser());
         //$sorties = $sortieRepository->findBy([]);
 
         return $this->render('main/accueil.html.twig', [
